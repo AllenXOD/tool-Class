@@ -431,6 +431,30 @@ var utils = {
             sex = "M";
         }
         return sex;
+    },
+    /** 手机号加密显示
+     * @param {*} mobile 手机号
+     * @return mobile 加密后的手机号
+     */
+    encrypt_mobile: function (mobile) {
+        if (mobile) {
+            return mobile.substr(0, 3) + '****' + mobile.substr(7);
+        } else {
+            return ''
+        }
+    },
+    /** 身份证号加密显示
+     * @param {*} cardNum 身份证号
+     * @param {*} 加密后的身份证号
+     */
+    encrypt_id_card: function (cardNum) {
+        if (cardNum) {
+            let newStr = ''
+            newStr = cardNum.substring(0, cardNum.length - 4) + '***' + cardNum.substring(cardNum.length - 1)
+            return newStr
+        } else {
+            return ''
+        }
     }
 }
 
