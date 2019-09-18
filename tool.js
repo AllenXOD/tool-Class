@@ -266,6 +266,79 @@ var ie = {
         $(document.body).append($download);
         //提交表单，实现下载
         $download.submit().remove();
+    },
+    /** 判断localStorage是否可用
+     */
+    has_localStorage: function () {
+        if (window.Storage && window.localStorage && window.localStorage instanceof Storage) {
+            return true
+        } else {
+            return false;
+        }
+    },
+    /** localStorage设置
+     * @param {*} key 名称
+     * @param {*} value 内容
+     * @param {*} day 时间
+     */
+    set_item: function (key, value, day) {
+        var time = day || 0;
+        var time = day || 0;
+        if (ie.has_localStorage()) {
+            try {
+                localStorage.setItem(key, value)
+            } catch (error) {
+                console.log('localStorage.getItem error: ', error.message);
+            }
+        } else {
+            utils.set_cookie(key, value, time)
+        }
+    },
+    /** localStorage获取
+     * @param {*} key 名称
+     * @return 存储的值
+     */
+    get_item: function (key) {
+        var value;
+        if (ie.has_localStorage()) {
+            try {
+                value = localStorage.getItem(key)
+            } catch (error) {
+                console.log('localStorage.getItem error: ', error.message);
+            }
+            finally {
+                return value
+            }
+        } else {
+            return utils.get_cookie(key)
+        }
+    },
+    /** localStorage删除
+     * @param {*} key 名称
+     */
+    del_item: function (key) {
+        if (ie.has_localStorage()) {
+            try {
+                localStorage.removeItem(key);
+            } catch (error) {
+                console.log('localStorage.getItem error: ', error.message);
+            }
+        } else {
+            utils.del_cookie(key)
+        }
+    },
+    /** localStorage清除
+     */
+    clear_item: function () {
+        if (ie.has_localStorage()) {
+            try {
+                localStorage.clear();
+            } catch (error) {
+                console.log('localStorage.getItem error: ', error.message);
+            }
+        } else {
+            utils.clear_cookie()
+        }
     }
 }
 
